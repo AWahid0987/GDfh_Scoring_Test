@@ -1,0 +1,239 @@
+<odoo>
+    <template id="form_template" name="GDfH Scoring Test">
+        <t t-call="website.layout">
+            <div class="container mt-10 mb-10">
+                <div class="row">
+                    <div class="col-md-9">
+                        <form action="/GDfH_Scoring_Test/submit" method="post">
+                            <!-- 🛡️ Add CSRF token -->
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                            <div class="form-group">
+                                <label>Name:</label>
+                                <input type="text" name="name" class="form-control" required="required"/>
+                            </div>
+                            <div class="form-group">
+                                <label>Email:</label>
+                                <input type="email" name="email" id="input_email" class="form-control" required="required" onblur="fetchPreviousResult()"/>
+                            </div>
+                            <div class="form-group">
+                                <label>Country:</label>
+                                <input type="text" name="country" id="input_country" class="form-control"/>
+                            </div>
+                            
+                            <hr/>
+                          <style>
+    th {
+        font-weight: normal;
+        text-align: justify;
+        vertical-align: top;
+        padding: 10px;
+    }
+    input {
+        box-sizing: border-box;
+        transition: border 0.3s ease;
+        border: 2px solid #ccc; /* Default border */
+    }
+    input.valid {
+        border-color: green;
+    }
+    input.invalid {
+        border-color: red;
+    }
+   
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const inputs = document.querySelectorAll('input');
+
+        inputs.forEach(input => {
+            input.addEventListener('input', function() {
+                if (input.checkValidity()) {
+                    input.classList.add('valid');
+                    input.classList.remove('invalid');
+                } else {
+                    input.classList.add('invalid');
+                    input.classList.remove('valid');
+                }
+            });
+        });
+    });
+</script>
+
+
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th><strong>Global Awareness</strong></th>
+                                    <th>Read different sourcing about ecological, social, economic and political issues at local, national, and global levels, recognizing how they contribute to global challenges</th>
+                                    <th>When encountering a problem (e.g., poverty, climate change), consistently seek to understand its underlying causes in discussions or actions, focus on systematic solutions that can create widespread, positive change, rather than isolated fixes.</th>
+                                    <th>Actively volunteer time or support organizations working systematically on sustainable development and poverty eradication, education, health in disadvantaged regions.</th>
+                                  
+                                </tr>
+                                <tr>
+                                    <td><strong>Score (0–10)</strong></td>
+                                    <td>
+                                      <input type="number" name="score_1" min="0" max="10" class="form-control mb-1" required="1"/>
+                                        
+                                    </td>
+                                    <td>
+                                          <input type="number" name="score_2" min="0" max="10" class="form-control mb-1" required="1"/>
+                                    </td>
+                                    <td>
+                                        
+                                        <input type="number" name="score_3" min="0" max="10" class="form-control" required="1"/>
+                                    </td>
+                                </tr>
+                                 <tr>
+                                    <th><strong>Active Civic Participation</strong></th>
+                                    <th>Voting after thoughtful research into political parties, candidates, and their policies—and choosing based on ethical principles.</th>
+                                    <th>Participate in public discourses, hold political representative accountable, meet regularly with civil society representatives. </th>
+                                    <th>Actively support and participate in local or international organizations or  movements working for global issues such as human rights, global justice, women empowerment etc.</th>
+                                   
+                                </tr>
+                                <tr>
+                                    <td><strong>Score (0–10)</strong></td>
+                                    <td>
+                                      <input type="number" name="score_4" min="0" max="10" class="form-control mb-1" required="1"/>
+                                        
+                                    </td>
+                                    <td>
+                                          <input type="number" name="score_5" min="0" max="10" class="form-control mb-1" required="1"/>
+                                    </td>
+                                    <td>
+
+                                        <input type="number" name="score_6" min="0" max="10" class="form-control" required="1"/>
+                                    </td>
+                                </tr>
+                                 <tr>
+                                    <th><strong>Ethical Consumption</strong></th>
+                                    <th>Avoid overconsumption, prioritize durable and recyclable items. Promote local items and prefer sharing.</th>
+                                    <th>Buy from companies who truly support undeveloped communities and adhere to ethical practices including environmental sustainability across their global supply chains.</th>
+                                    <th>Take care of animal welfare by avoiding mass factory-farmed animal or similar practices. Use alternatives to leather, rejecting entertainment that hurts animals. Advocate and participate in animal right compaigns.</th>
+                                    
+                                                                    </tr>
+                                <tr>
+                                    <td><strong>Score (0–10)</strong></td>
+                                    <td>
+                                      <input type="number" name="score_7" min="0" max="10" class="form-control mb-1" required="1"/>
+                                        
+                                    </td>
+                                    <td>
+                                          <input type="number" name="score_8" min="0" max="10" class="form-control mb-1" required="1"/>
+                                    </td>
+                                    <td>
+
+                                        <input type="number" name="score_9" min="0" max="10" class="form-control" required="1"/>
+                                    </td>
+                                </tr>
+                                 <tr>
+                                    <th><strong>Environment Protection</strong></th>
+                                    <th>Use renewable energy sources such as solar, wind, and hydroelectric power compared to fossil fuels.</th>
+                                    <th>Reduce CO2 footprint through energy efficient appliances and environment friendly transportation and solutions.</th>
+                                    <th>Contribute to environmental projects through volunteering or resources such as forestation, conservation, clean water initiatives etc.</th>
+
+                                </tr>
+                                <tr>
+                                    <td><strong>Score (0–10)</strong></td>
+                                    <td>
+                                      <input type="number" name="score_10" min="0" max="10" class="form-control mb-1" required="1"/>
+                                        
+                                    </td>
+                                    <td>
+                                          <input type="number" name="score_11" min="0" max="10" class="form-control mb-1" required="1"/>
+                                    </td>
+                                    <td>
+                                        
+                                        <input type="number" name="score_12" min="0" max="10" class="form-control" required="1"/>
+                                    </td>
+                                </tr>
+                                 <tr>
+                                    <th><strong>Peace and conflict management</strong></th>
+                                    <th>Create inner peace by mediatation, sports, thankfulness, purposeful work and quality ethical relationships. Actions shall be guided by deep moral conviction rather than egosim or vanity.</th>
+                                    <th>Use empathetic and respectful communication to resolve personal or group disagreements, avoiding escalation, bring opposing sides together, listen carefully to opinions or fears of others to find common ground.</th>
+                                    <th>Contribute to foundation and expansion of resilient local and international communities for peace and conflict resolving, volunteer efforts to address challenges, keep active network, exchange ideas and share resources.</th>
+                                </tr>
+                                <tr>
+                                    <td><strong>Score (0–10)</strong></td>
+                                    <td>
+                                      <input type="number" name="score_13" min="0" max="10" class="form-control mb-1" required="1"/>
+                                        
+                                    </td>
+                                    <td>
+                                          <input type="number" name="score_14" min="0" max="10" class="form-control mb-1" required="1"/>
+                                    </td>
+                                    <td>
+
+                                        <input type="number" name="score_15" min="0" max="10" class="form-control" required="1"/>
+                                    </td>
+                                </tr>
+                                 <tr>
+                                    <th><strong>Intercultural competence</strong></th>
+                                   <th>Travel and engage with different cultures and belief systems, going beyond surface-level observations or media headlines.</th>
+                                   <th>Understand how your own cultural background can bias or influence your views,  seek knowledge and build respectful relationships.</th>
+                                   <th>Actively solve problems and work to make communities more inclusive and fair such as speaking out against racism, discrimination, or xenophobia.</th>
+                                </tr>
+                                <tr>
+                                    <td><strong>Score (0–10)</strong></td>
+                                    <td>
+                                      <input type="number" name="score_16" min="0" max="10" class="form-control mb-1" required="1"/>
+                                        
+                                    </td>
+                                    <td>
+                                          <input type="number" name="score_17" min="0" max="10" class="form-control mb-1" required="1"/>
+                                    </td>
+                                    <td>
+
+                                        <input type="number" name="score_18" min="0" max="10" class="form-control" required="1"/>
+                                    </td>
+                                </tr>
+                            </table>
+                              <div class="d-flex justify-content-center mt-3">
+                              <button type="submit" class="btn btn-primary">Submit</button><br></br>
+                              </div>
+               </form><br></br><br></br>
+                    </div>
+                    <div class="col-md-3" id="previous_result">
+                        <h4>Previous Result</h4>
+                        <div id="result_output"></div>
+                    </div>
+                </div>
+            </div>
+            <script>
+                function fetchPreviousResult() {
+                    var email = document.getElementById("input_email").value;
+                    if (email) {
+                        fetch("/GDfH_Scoring_Test/fetch_result?email=" + encodeURIComponent(email))
+                            .then(res => res.json())
+                            .then(data => {
+                                let output = "";
+                                if (data.found) {
+                                    output += "<b>Name:</b> " + data.name + "<br/>";
+                                    output += "<b>Email:</b> " + data.email + "<br/>";
+                                    output += "<b>Country:</b> " + data.country + "<br/>";
+                                    output += "<b>Total Score:</b> " + data.total_score + "<br/>";
+                                    output += "<b>Level:</b> " + data.level + "<br/>";
+                                } else {
+                                    output = "No previous result found.";
+                                }
+                                document.getElementById("result_output").innerHTML = output;
+                            });
+                    }
+                }
+            </script>
+        </t>
+    </template>
+
+    <template id="result_template" name="GDfH Result">
+        <t t-call="website.layout">
+            <div class="container mt-2 mb-2">
+                <h2>Thank you, <t t-esc="name"/>!</h2>
+                <p><b>Email:</b> <t t-esc="email"/></p>
+                <p><b>Country:</b> <t t-esc="country"/></p>
+                <p><b>Your Total Score:</b> <t t-esc="total_score"/></p>
+                <p><b>Assessment:</b><style> text-align: justify; margin: 0; padding: 5px 0; </style> <t t-esc="level"/></p>
+                <a href="/GDfH_Scoring_Test" class="btn btn-secondary mt-3">Take Again</a>
+            </div>
+        </t>
+    </template>
+</odoo>

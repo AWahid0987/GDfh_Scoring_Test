@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+    <!-- Kanban View for Result -->
+    <record id="view_gdfh_result_kanban" model="ir.ui.view">
+        <field name="name">gdfh.result.kanban.view</field>
+        <field name="model">gdfh.result</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_small_column" create="false">
+                <field name="name"/>
+                <field name="email"/>
+                <field name="country"/>
+                <field name="total_score"/>
+                <field name="level"/>
+               
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click o_kanban_record" style="padding: 10px; border: 1px solid #ccc;">
+                            <div class="row" style="display: flex; justify-content: space-between;">
+                                <!-- Left Column -->
+                                <div style="width: 100%;">
+                                    <p><strong>Name:</strong><br/><t t-esc="record.name.value"/></p>
+                                    <p><strong>Email:</strong><br/><t t-esc="record.email.value"/></p>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+                
+            </kanban>
+        </field>
+    </record>
+<record id="view_gdfh_related_result_kanban" model="ir.ui.view">
+    <field name="name">gdfh.result.related.kanban</field>
+    <field name="model">gdfh.result</field>
+    <field name="type">kanban</field> <!-- REQUIRED -->
+    <field name="arch" type="xml">
+        <kanban string="Related Results">
+            <field name="name"/>
+            <field name="email"/>
+        </kanban>
+    </field>
+</record>
+
+    <!-- ✅ Form View with Print Button -->
+    <record id="view_gdfh_result_form" model="ir.ui.view">
+        <field name="name">gdfh.result.form</field>
+        <field name="model">gdfh.result</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="print_report" type="object" string="Print Report" class="btn-primary"/>
+                </header>
+                <sheet>
+                <table class="o_main_table">
+                        <tr width="100%">
+                            <td><strong>Name:</strong></td>
+                            <td><field name="name"/></td>
+                        </tr>
+                        <tr width="100%">
+                            <td><strong>Email:</strong></td>
+                            <td><field name="email"/></td>
+                        </tr>
+                        <tr width="100%">
+                            <td><strong>Country:</strong></td>
+                            <td><field name="country"/></td>
+                        </tr>
+                       </table>
+                    <table class="o_main_table">
+                        <tr>
+                            <td><strong>Score 1:</strong></td>
+                            <td><strong>Score 2:</strong></td>
+                            <td><strong>Score 3:</strong></td>
+                            <td><strong>Score 4:</strong></td>
+                            <td><strong>Score 5:</strong></td>
+                            <td><strong>Score 6:</strong></td>
+                            <td><strong>Score 7:</strong></td>
+                            <td><strong>Score 8:</strong></td>
+                            <td><strong>Score 9:</strong></td>
+                            <td><strong>Score 10:</strong></td>
+                            <td><strong>Score 11:</strong></td>
+                            <td><strong>Score 12:</strong></td>
+                            <td><strong>Score 13:</strong></td>
+                            <td><strong>Score 14:</strong></td>
+                            <td><strong>Score 15:</strong></td>
+                            <td><strong>Score 16:</strong></td>
+                            <td><strong>Score 17:</strong></td>
+                            <td><strong>Score 18:</strong></td>
+                            
+                            <td><strong>Total Score:</strong></td>
+                            <td><strong>Level:</strong></td>
+                            <td><strong>Submitted On:</strong></td>
+                        </tr>
+                        <tr>
+                            <td><field name="score_1"/></td>
+                            <td><field name="score_2"/></td>
+                            <td><field name="score_3"/></td>
+                            <td><field name="score_4"/></td>
+                            <td><field name="score_5"/></td>
+                            <td><field name="score_6"/></td>
+                            <td><field name="score_7"/></td>
+                            <td><field name="score_8"/></td>
+                            <td><field name="score_9"/></td>
+                            <td><field name="score_10"/></td>
+                            <td><field name="score_11"/></td>
+                            <td><field name="score_12"/></td>
+                            <td><field name="score_13"/></td>
+                            <td><field name="score_14"/></td>
+                            <td><field name="score_15"/></td>
+                            <td><field name="score_16"/></td>
+                            <td><field name="score_17"/></td>
+                            <td><field name="score_18"/></td>
+                            <td><field name="total_score"/></td>
+                            <td><field name="level"/></td>
+                            <td><field name="submitted_on"/></td>
+                        </tr>
+                      
+                    </table>
+    
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_gdfh_result_kanban" model="ir.actions.act_window">
+        <field name="name">GDfH Results</field>
+        <field name="res_model">gdfh.result</field>
+        <field name="view_mode">kanban,form</field>
+        <field name="view_id" ref="view_gdfh_result_kanban"/>
+    </record>
+
+    <!-- Menu -->
+    <menuitem id="menu_gdfh_root" name="GDfH" sequence="10"/>
+    <menuitem id="menu_gdfh_result_menu" 
+              name="Results" 
+              parent="menu_gdfh_root" 
+              action="action_gdfh_result_kanban"/>
+
+  </data>
+</odoo>

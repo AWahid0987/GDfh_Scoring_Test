@@ -1,0 +1,105 @@
+<odoo>
+  <template id="result_template" name="GDfH Scoring Result">
+    <t t-call="website.layout">
+      <div class="container mt-5">
+        <t t-if="results">
+          <h2 class="mb-2">Thank you, <t t-esc="results[0].name"/>!</h2>
+          <p><strong>Email:</strong> <t t-esc="results[0].email"/></p>
+          <p><strong>Country:</strong> <t t-esc="results[0].country"/></p>
+
+          <t t-foreach="results" t-as="r">
+            <div class="result-entry mt-4 p-3 border rounded shadow-sm">
+              <p><strong>Total Score:</strong> <t t-esc="r.total_score"/></p>
+              <p><strong>Level:</strong> <t t-esc="r.level"/></p>
+              <p><strong>Global Awareness:</strong> <t t-esc="r.global_awareness_pct"/>%</p>
+              <p><strong>Civic Participation:</strong> <t t-esc="r.civic_participation_pct"/>%</p>
+              <p><strong>Environmental Awareness:</strong> <t t-esc="r.environment_pct"/>%</p>
+              <p><strong>Ethical Understanding:</strong> <t t-esc="r.ethical_pct"/>%</p>
+              <p><strong>Peace &amp; Conflict Resolution:</strong> <t t-esc="r.peace_pct"/>%</p>
+              <p><strong>Intercultural Understanding:</strong> <t t-esc="r.intercultural_pct"/>%</p>
+              <p class="text-muted"><small>Submitted on:
+                <t t-esc="r.submitted_on.strftime('%Y-%m-%d %H:%M') if r.submitted_on else ''"/>
+              </small></p>
+            </div>
+          </t>
+
+          <div class="gdfh-result-graph mt-5" t-att-data-email="results[0].email">
+            <h3 class="mb-3">Score Graph</h3>
+            <canvas id="gdfhChart" width="400" height="250"></canvas>
+          </div>
+
+          <!-- Legend -->
+          <div class="mt-4">
+            <p><span style="color: green; font-weight: bold;">85-100 🌟 Progressive Visionary</span></p>
+            <p><span style="color: #28a745; font-weight: bold;">70-84 ✅ Strong Contributor</span></p>
+            <p><span style="color: orange; font-weight: bold;">50-69 ⚠️ Emerging Contributor</span></p>
+            <p><span style="color: red; font-weight: bold;">Below 50 💡 Needs Focused Engagement</span></p>
+          </div>
+        </t>
+
+        <div class="mt-4">
+          <a href="/" class="btn btn-secondary">Home</a>
+          <a href="/GDfH_Scoring_Test" class="btn btn-primary">Go Back</a>
+        </div>
+      </div>
+
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+      <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          const ctx = document.getElementById("gdfhChart").getContext("2d");
+
+          const scores = [
+            <t t-esc="results[0].global_awareness_pct" />,
+            <t t-esc="results[0].civic_participation_pct" />,
+            <t t-esc="results[0].environment_pct" />,
+            <t t-esc="results[0].ethical_pct" />,
+            <t t-esc="results[0].peace_pct" />,
+            <t t-esc="results[0].intercultural_pct" />
+          ];
+
+          const colors = scores.map(score => {
+            if (score >= 85) return 'green';                 // Progressive Visionary
+            else if (score >= 70) return '#28a745';          // Strong Contributor
+            else if (score >= 50) return 'orange';           // Emerging Contributor
+            else return 'red';                               // Needs Focused Engagement
+          });
+
+          const data = {
+            labels: [
+              "Global Awareness",
+              "Civic Participation",
+              "Environmental Awareness",
+              "Ethical Understanding",
+              "Peace &amp; Conflict Resolution",
+              "Intercultural Understanding"
+            ],
+            datasets: [{
+              label: "Score (%)",
+              data: scores,
+              backgroundColor: colors,
+              borderColor: "rgba(0,0,0,0.2)",
+              borderWidth: 1
+            }]
+          };
+
+          const config = {
+            type: "bar",
+            data: data,
+            options: {
+              responsive: true,
+              scales: {
+                y: {
+                  beginAtZero: true,
+                  max: 100
+                }
+              }
+            }
+          };
+
+          new Chart(ctx, config);
+        });
+      </script>
+    </t>
+  </template>
+</odoo>
